@@ -38,7 +38,7 @@ function Content() {
   return (
     <PanelSection>
       <PanelSectionRow>
-        <ButtonItem label="Video will be saved in ~/Videos/test.mkv" layout="below" onClick={onClick} >
+        <ButtonItem label="Video will be saved in ~/Videos/" layout="below" onClick={onClick} >
           {isRecording ? "Stop recording" : "Start recording"}
         </ButtonItem>
       </PanelSectionRow>

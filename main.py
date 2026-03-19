@@ -1,7 +1,7 @@
 import os
 import asyncio
-import time
 import signal
+from datetime import datetime
 
 import subprocess
 import decky
@@ -15,7 +15,8 @@ class Plugin:
     gstpluginspath = f"GST_PLUGIN_PATH={decky.DECKY_PLUGIN_DIR}/bin/gstreamer-1.0"
     videopipeline = "pipewiresrc do-timestamp=true target-object=gamescope keepalive-time=33 resend-last=true ! videoconvert ! vah264enc ! h264parse ! mux."
     audiopipeline = "pipewiresrc do-timestamp=true stream-properties=props,stream.capture.sink=true ! opusenc"
-    filecreationpipeline = f"matroskamux name=mux ! filesink location={decky.HOME}/Videos/test.mkv"
+    filename = f"{datetime.now().strftime("%Y-%m-%d_%H:%M:%S")}.mkv"
+    filecreationpipeline = f"matroskamux name=mux ! filesink location={decky.HOME}/Videos/{filename}"
 
     pipeline = f"{gstpluginspath} gst-launch-1.0 {videopipeline} {audiopipeline} ! {filecreationpipeline}"
 
