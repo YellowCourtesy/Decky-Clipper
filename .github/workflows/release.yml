@@ -1,0 +1,39 @@
+name: Create Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: depsetup
+        run: .vscode/setup.sh
+
+      - name: Install
+        run: npm install -g pnpm
+
+      - name: pnpmsetup
+        run: pnpm i
+
+      - name: updatefrontendlib
+        run: pnpm update @decky/ui --latest
+
+      - name: cli-build
+        run: .vscode/build.sh
+
+      - name: View filesystem
+        run: ls out
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "out/Decky Clipper.zip"
