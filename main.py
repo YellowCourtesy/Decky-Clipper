@@ -15,7 +15,7 @@ class Plugin:
     gstpluginspath = decky.DECKY_PLUGIN_DIR + "/bin/gstreamer-1.0"
 
     filesinklocation = decky.HOME + "/Videos/test.mkv"
-    pipeline = f"GST_PLUGIN_PATH={gstpluginspath} gst-launch-1.0 -ev pipewiresrc do-timestamp=true target-object=gamescope keepalive-time=33 ! videoconvert ! vah264enc ! h264parse ! mux. pipewiresrc do-timestamp=true ! opusenc ! matroskamux name=mux ! filesink location={filesinklocation}"
+    pipeline = f"GST_PLUGIN_PATH={gstpluginspath} gst-launch-1.0 -ev pipewiresrc do-timestamp=true target-object=gamescope keepalive-time=33 ! videoconvert ! vah264enc ! h264parse ! mux. pipewiresrc do-timestamp=true stream-properties=props,stream.capture.sink=true ! opusenc ! matroskamux name=mux ! filesink location={filesinklocation}"
 
     decky.logger.info("Running pipeline: " + pipeline)
     process = subprocess.Popen(pipeline, shell=True, env=self._env)
