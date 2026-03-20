@@ -30,9 +30,6 @@ jobs:
       - name: cli-build
         run: .vscode/build.sh
 
-      - name: View filesystem
-        run: ls out
-
       - name: Release
         uses: ncipollo/release-action@v1
         with:
